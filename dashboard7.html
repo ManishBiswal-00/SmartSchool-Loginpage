@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartSchool Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #7fa6cf;
+      color: white;
+      padding: 20px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+    }
+
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      border-radius: 3px;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .header-icons i {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .header-icons i:hover {
+      transform: scale(1.2);
+      color: #ffdd57;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 70px;
+      height: calc(100% - 70px);
+      background-color: white;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow-x: hidden;
+      transition: width 0.3s ease;
+      z-index: 998;
+      padding: 10px 5px;
+    }
+
+    .sidebar.active {
+      width: 250px;
+    }
+
+    .card, .dashboard-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+      cursor: pointer;
+      width: 100%;
+      min-height: 45px;
+    }
+
+    .card i, .dashboard-card i {
+      font-size: 1.4rem;
+      min-width: 30px;
+      text-align: center;
+      color: #3f83f8;
+    }
+
+    .card-title, .dashboard-card p {
+      display: none;
+      color: #333;
+      font-size: 1rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .sidebar.active .card-title,
+    .sidebar.active .dashboard-card p {
+      display: inline-block;
+    }
+
+    .card:hover, .dashboard-card:hover {
+      background-color: #f0f0f0;
+    }
+
+    .card.active i,
+    .dashboard-card.active i {
+      color: #000;
+    }
+
+    .main-wrapper {
+      flex: 1;
+      margin-left: 70px;
+      margin-top: 70px;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.active ~ .main-wrapper {
+      margin-left: 250px;
+    }
+
+    footer {
+      background-color: #7fa6cf;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .social-icons {
+      margin-bottom: 10px;
+    }
+
+    .social-icons a {
+      margin: 0 10px;
+      color: white;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ffdd57;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 60px;
+      }
+
+      .sidebar.active {
+        width: 100%;
+      }
+
+      .main-wrapper {
+        margin-left: 60px;
+      }
+
+      .sidebar.active ~ .main-wrapper {
+        margin-left: 0;
+      }
+
+      .card-title, .dashboard-card p {
+        font-size: 0.95rem;
+      }
+
+      .sidebar:not(.active) .card,
+      .sidebar:not(.active) .dashboard-card {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-icon" onclick="toggleSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="header-title">Smart School</div>
+    <div class="header-icons">
+      <i class="fas fa-bell" title="Notifications" onclick="alert('No new notifications')"></i>
+      <i class="fas fa-key" title="Change Password" onclick="alert('Change Password Clicked')"></i>
+      <i class="fas fa-sign-out-alt" title="Logout" onclick="alert('Logging out...')"></i>
+    </div>
+  </header>
+
+  <div class="sidebar" id="sidebar">
+    <div class="card" onclick="activateCard(this)">
+      <i class="fas fa-user-graduate"></i>
+      <div class="card-title">Students</div>
+    </div>
+    <div class="card" onclick="activateCard(this)">
+      <i class="fas fa-chalkboard-teacher"></i>
+      <div class="card-title">Teachers</div>
+    </div>
+    <div class="card" onclick="activateCard(this)">
+      <i class="fas fa-book"></i>
+      <div class="card-title">Courses</div>
+    </div>
+    <div class="card" onclick="activateCard(this)">
+      <i class="fas fa-calendar-alt"></i>
+      <div class="card-title">Timetable</div>
+    </div>
+    <div class="card" onclick="activateCard(this)">
+      <i class="fas fa-cogs"></i>
+      <div class="card-title">Settings</div>
+    </div>
+
+    <div class="dashboard" style="margin-top: 30px;">
+      <div class="dashboard-card" onclick="activateCard(this)">
+        <i class="fas fa-user-check"></i>
+        <p>Attendance</p>
+      </div>
+      <div class="dashboard-card" onclick="activateCard(this)">
+        <i class="fas fa-bus"></i>
+        <p>Bus Tracking</p>
+      </div>
+      <div class="dashboard-card" onclick="activateCard(this)">
+        <i class="fas fa-comments"></i>
+        <p>Counselling</p>
+      </div>
+      <div class="dashboard-card" onclick="activateCard(this)">
+        <i class="fas fa-wallet"></i>
+        <p>Fee Management</p>
+      </div>
+      <div class="dashboard-card" onclick="activateCard(this)">
+        <i class="fas fa-university"></i>
+        <p>University Results</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper">
+    <h2>Welcome to Smart School!</h2>
+  </div>
+
+  <footer>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <p>&copy; 2025 Smart School. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    function activateCard(el) {
+      const allCards = document.querySelectorAll(".card, .dashboard-card");
+      allCards.forEach(card => card.classList.remove("active"));
+      el.classList.add("active");
+    }
+  </script>
+</body>
+</html>

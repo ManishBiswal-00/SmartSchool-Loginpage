@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartSchool Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    header {
+      background-color: #7fa6cf;
+      color: white;
+      padding: 20px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+    }
+
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      border-radius: 3px;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .header-icons i {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .header-icons i:hover {
+      transform: scale(1.2);
+      color: #ffdd57;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 70px;
+      height: calc(100% - 70px);
+      background-color: white;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow-x: hidden;
+      transition: width 0.3s ease;
+      z-index: 998;
+      padding: 10px 5px;
+    }
+
+    .sidebar.active {
+      width: 250px;
+    }
+
+    .sidebar .card {
+      margin-bottom: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+    }
+
+    .sidebar .card i {
+      font-size: 1.3rem;
+      color: #3f83f8; 
+      width: 30px;
+      text-align: center;
+    }
+
+    .sidebar .card-title {
+      display: none;
+      white-space: nowrap;
+      color: #333;
+    }
+
+    .sidebar.active .card-title {
+      display: inline;
+    }
+
+    .main-wrapper {
+      margin-left: 70px;
+      margin-top: 70px;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.active ~ .main-wrapper {
+      margin-left: 250px;
+    }
+
+    .sidebar .dashboard {
+      margin-top: 30px;
+    }
+
+    .sidebar .dashboard-card {
+      background-color: transparent;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .dashboard-card i {
+      font-size: 1.3rem;
+      color: #3f83f8;
+      width: 30px;
+      text-align: center;
+    }
+
+    .dashboard-card p {
+      display: none;
+      margin: 0;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .sidebar.active .dashboard-card p {
+      display: inline;
+    }
+
+    .card:hover,
+    .dashboard-card:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 60px;
+      }
+
+      .sidebar.active {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-icon" onclick="toggleSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="header-title">Smart School</div>
+    <div class="header-icons">
+      <i class="fas fa-bell" title="Notifications" onclick="alert('No new notifications')"></i>
+      <i class="fas fa-key" title="Change Password" onclick="alert('Change Password Clicked')"></i>
+      <i class="fas fa-sign-out-alt" title="Logout" onclick="alert('Logging out...')"></i>
+    </div>
+  </header>
+
+  <div class="sidebar" id="sidebar">
+
+    <div class="card">
+      <i class="fas fa-user-graduate"></i>
+      <div class="card-title">Students</div>
+    </div>
+    <div class="card">
+      <i class="fas fa-chalkboard-teacher"></i>
+      <div class="card-title">Teachers</div>
+    </div>
+    <div class="card">
+      <i class="fas fa-book"></i>
+      <div class="card-title">Courses</div>
+    </div>
+    <div class="card">
+      <i class="fas fa-calendar-alt"></i>
+      <div class="card-title">Timetable</div>
+    </div>
+    <div class="card">
+      <i class="fas fa-cogs"></i>
+      <div class="card-title">Settings</div>
+    </div>
+
+    <div class="dashboard">
+      <div class="dashboard-card" onclick="alert('Attendance')">
+        <i class="fas fa-user-check"></i>
+        <p>Attendance</p>
+      </div>
+      <div class="dashboard-card" onclick="alert('Bus Tracking')">
+        <i class="fas fa-bus"></i>
+        <p>Bus Tracking</p>
+      </div>
+      <div class="dashboard-card" onclick="alert('Counselling')">
+        <i class="fas fa-comments"></i>
+        <p>Counselling</p>
+      </div>
+      <div class="dashboard-card" onclick="alert('Fee Management')">
+        <i class="fas fa-wallet"></i>
+        <p>Fee Management</p>
+      </div>
+      <div class="dashboard-card" onclick="alert('University Results')">
+        <i class="fas fa-university"></i>
+        <p>University Results</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper">
+
+    <h2>Welcome to Smart School!</h2>
+    
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

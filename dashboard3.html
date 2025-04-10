@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMART SCHOOL Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #f1f8f2;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-icon {
+      font-size: 22px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+    }
+
+    .left h1 {
+      font-size: 22px;
+    }
+
+    .right i {
+      margin-left: 20px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #388e3c;
+      color: white;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+
+    .sidebar h2 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+    }
+
+    .sidebar ul li:hover {
+      color: #a5d6a7;
+    }
+
+    .dashboard {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .dashboard h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #2e7d32;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        height: 100%;
+        z-index: 1000;
+        top: 60px;
+        left: 0;
+      }
+
+      .dashboard {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="left">
+      <i class="fas fa-bars menu-icon" id="menuToggle"></i>
+      <h1>SMART SCHOOL</h1>
+    </div>
+    <div class="right">
+      <i class="fas fa-bell" title="Notifications"></i>
+      <i class="fas fa-key" title="Change Password"></i>
+      <i class="fas fa-sign-out-alt" title="Logout"></i>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+      <h2>Main Modules</h2>
+      <ul>
+        <li>User Management</li>
+        <li>Admission Management</li>
+        <li>School Exit Management</li>
+        <li>Bus Tracking System</li>
+        <li>Attendance Management</li>
+        <li>Fee Management</li>
+        <li>Account Management</li>
+        <li>Library Management</li>
+      </ul>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+      <h2>Dashboard Modules</h2>
+      <div class="grid">
+        <div class="card">Time Table Management</div>
+        <div class="card">Scoreboard / Grade Management</div>
+        <div class="card">Communication Tools</div>
+        <div class="card">Online Purchase System</div>
+        <div class="card">Doubt & Exam Prep</div>
+        <div class="card">E-Learning</div>
+        <div class="card">Career Counselling</div>
+        <div class="card">Health/Injury Management</div>
+        <div class="card">Canteen/Lunch Management</div>
+        <div class="card">Surveillance Management</div>
+        <div class="card">Hostel Management</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        alert(`You selected: "${card.textContent}"`);
+      });
+    });
+
+    document.querySelectorAll('.sidebar ul li').forEach(item => {
+      item.addEventListener('click', () => {
+        alert(`You selected: "${item.textContent}"`);
+      });
+    });
+  </script>
+
+</body>
+</html>
