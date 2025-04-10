@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart School Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: url('login2.avif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    header {
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+      letter-spacing: 1px;
+      position: absolute;
+      top: 0;
+    }
+
+    .login-container {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      max-width: 95%;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      margin-top: 80px;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      background: #2196f3;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 36px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 500;
+    }
+
+    .social-btn img {
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    .social-btn:hover {
+      background-color: #f0f0f0;
+    }
+
+    .divider {
+      margin: 20px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      width: 45%;
+      background: #ccc;
+      position: absolute;
+      top: 50%;
+    }
+
+    .divider::before {
+      left: 0;
+    }
+
+    .divider::after {
+      right: 0;
+    }
+
+    .divider span {
+      background: #fff;
+      padding: 0 10px;
+      color: #888;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background-color: #2196f3;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1976d2;
+    }
+
+    .options {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .options a {
+      color: #2196f3;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .options a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>SMARTSCHOOL</header>
+
+  <div class="login-container">
+    <div class="avatar">🔒</div>
+    <h2>Login to Your Account</h2>
+
+    <div class="social-buttons">
+      <div class="social-btn" onclick="alert('Google Login Coming Soon!')">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
+        Continue with Google
+      </div>
+      <div class="social-btn" onclick="alert('Apple Login Coming Soon!')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" />
+        Continue with Apple
+      </div>
+    </div>
+
+    <div class="divider"><span>or</span></div>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="options">
+      <p>Forgot your password? <a href="#">Reset here</a></p>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const usernameValid = username.length >= 8;
+      const passwordValid = 
+        password.length >= 12 &&
+        /[A-Z]/.test(password) &&
+        /[^A-Za-z0-9]/.test(password);
+
+      if (!usernameValid) {
+        alert("Username must be at least 8 characters long.");
+        return;
+      }
+
+      if (!passwordValid) {
+        alert("Password must be at least 12 characters long, contain at least one uppercase letter and one special character.");
+        return;
+      }
+
+    
+      if (username === "Manish12" && password === "Rcb@Champion18") {
+        alert("Login successful!");
+      } else {
+        alert("Invalid credentials. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
